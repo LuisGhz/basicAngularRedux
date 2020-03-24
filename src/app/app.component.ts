@@ -11,4 +11,12 @@ export class AppComponent {
   constructor() {
     this.contador = 10;
   }
+
+  incrementar() {
+    ++this.contador;
+  }
+
+  decrementar() {
+    --this.contador;
+  }
 }
