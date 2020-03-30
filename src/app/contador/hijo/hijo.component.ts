@@ -1,32 +1,34 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { MultiplyCounter, DivideCounter } from '../counter.actions';
+import { AppState } from '../../app.reducers';
+
+
 
 @Component({
   selector: 'app-hijo',
   templateUrl: './hijo.component.html',
   styles: []
 })
-export class HijoComponent implements OnInit {
+export class HijoComponent {
 
-  @Input() contador: number;
-  @Output() cambioContador = new EventEmitter<number>();
+  counter: number;
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private store: Store<AppState>) {
+    this.store.select('counter').subscribe(counter => {
+      this.counter = counter;
+    });
   }
 
-  multiplicar() {
-    this.contador *= 2;
-    this.cambioContador.emit(this.contador);
+  multiply() {
+    const action = new MultiplyCounter(5);
+
+    this.store.dispatch(action);
   }
 
-  dividir() {
-    this.contador /= 2;
-    this.cambioContador.emit(this.contador);
-  }
+  divide() {
+    const action = new DivideCounter(2);
 
-  resetNieto(nuevoContador) {
-    this.contador = nuevoContador;
-    this.cambioContador.emit(this.contador);
+    this.store.dispatch(action);
   }
 }
