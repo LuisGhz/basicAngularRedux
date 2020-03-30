@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { Store, Action } from '@ngrx/store';
-import { INCREMENTAR, DECREMENTAR, IncrementarContador, DecrementarContador } from './contador/contador.actions';
+import { Store } from '@ngrx/store';
+import { IncrementCounter, DecrementCounter } from './contador/contador.actions';
 
+// Interface that will be used to pass the counter
 interface AppState {
-  contador: number
+  counter: number
 }
 
 @Component({
@@ -12,27 +13,26 @@ interface AppState {
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  contador: number;
+  // Create the variable counter
+  counter: number;
 
+  // Inyection dependency. Variable store as type Store and use the interface AppState
   constructor(private store: Store<AppState>) {
-    // this.contador = 10;
-    this.store.select('contador').subscribe(contador => this.contador = contador);
+    // Select the property counter to assíng the value to the variable counter
+    this.store.select('counter').subscribe(counter => this.counter = counter);
   }
 
-  incrementar() {
-    // ++this.contador;
-
-    const action = new IncrementarContador();
-
+  increment() {
+    // Create a const of the action
+    const action = new IncrementCounter();
+    // Pass and execute the action
     this.store.dispatch(action);
-
   }
 
-  decrementar() {
-    // --this.contador;
-
-    const action = new DecrementarContador();
-
+  decrement() {
+    // Create a const of the action
+    const action = new DecrementCounter();
+    // Pass and execute the action
     this.store.dispatch(action);
   }
 }
