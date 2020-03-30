@@ -1,11 +1,7 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { IncrementCounter, DecrementCounter } from './contador/contador.actions';
-
-// Interface that will be used to pass the counter
-interface AppState {
-  counter: number
-}
+import { IncrementCounter, DecrementCounter } from './contador/counter.actions';
+import { AppState } from './app.reducers';
 
 @Component({
   selector: 'app-root',
